@@ -50,6 +50,9 @@ $("#searchBtn").on("click", function (event) {
         $("#TemperatureMain").text(responseForcast.current.temp);
         $("#HumidityMain").text(responseForcast.current.humidity);
         $("#WindSpeedMain").text(responseForcast.current.wind_speed);
+        for (let i = 0; i < 4; i++) {
+          const element = responseForcast.daily[i];
+        }
       });
       $.ajax({
         url: queryUrlUV,
@@ -58,9 +61,9 @@ $("#searchBtn").on("click", function (event) {
         console.log("responseUV");
         console.log(responseUV);
 
-        $("#TemperatureMain").text(responseForcast.current.temp);
+        $("#uvIndexMain").text(responseUV.value);
       });
     });
-    //write the weathe to the screen
+    //write the weather to the screen
   }
 });
