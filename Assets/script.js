@@ -61,6 +61,7 @@ $("#searchBtn").on("click", function (event) {
         for (let i = 0; i < 5; i++) {
           const dayObj = responseForcast.daily[i];
           console.log(dayObj);
+          //create card elements
           let col = $("<div>", { class: "col" });
           let card = $("<div>", {
             class: "card text-white bg-primary mb-3",
@@ -75,14 +76,24 @@ $("#searchBtn").on("click", function (event) {
             alt: "weather icon",
             src: `http://openweathermap.org/img/wn/${dayObj.weather[0].icon}@2x.png`,
           });
-
-          $("#cardDate1").text(dayjs.unix(dayObj.dt).format("M / D / YYYY"));
-          $("#cardIcon1").attr(
-            `src`,
-            `http://openweathermap.org/img/wn/${dayObj.weather[0].icon}@2x.png`
+          let cardTemp = $("<p>", { class: `card-text mb-2` }).text(
+            `Temp: ${dayObj.temp.day}`
           );
-          $("#cardTemp1").text(dayObj.temp.day);
-          $("#CardHumidity1").text(dayObj.humidity);
+          let cardHumidity = $("<p>", { class: `card-text` }).text(
+            `Humidity: ${dayObj.humidity}`
+          );
+          col.append(card);
+          card.append(cardBody);
+          cardBody.append(cardTitle, cardIcon, cardTemp, cardHumidity);
+          $("#fiveDayCards").append(col);
+
+          // $("#cardDate1").text(dayjs.unix(dayObj.dt).format("M / D / YYYY"));
+          // $("#cardIcon1").attr(
+          //   `src`,
+          //   `http://openweathermap.org/img/wn/${dayObj.weather[0].icon}@2x.png`
+          // );
+          // $("#cardTemp1").text(dayObj.temp.day);
+          // $("#CardHumidity1").text(dayObj.humidity);
         }
       });
       $.ajax({
