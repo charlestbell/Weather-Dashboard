@@ -34,17 +34,31 @@ $("#searchBtn").on("click", function (event) {
       url: queryUrlLatLong,
       method: "GET",
     }).then(function (responseLatLong) {
+      //Write City Name to screen
+      $("#cityTitleMain").text(responseLatLong.city.name);
+      //Use the returned lat and long to get 7 day weather
       console.log(responseLatLong);
-      var latitude = responseLatLong.city.coord.lat;
-      var longitude = responseLatLong.city.coord.lon;
-      var queryUrlForcast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=abf76a69e67fc664083162f1310bc36e`;
-
+      let latitude = responseLatLong.city.coord.lat;
+      let longitude = responseLatLong.city.coord.lon;
+      let queryUrlForcast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=abf76a69e67fc664083162f1310bc36e`;
+      let queryUrlUV = `http://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=abf76a69e67fc664083162f1310bc36e`;
       $.ajax({
         url: queryUrlForcast,
         method: "GET",
       }).then(function (responseForcast) {
         console.log(responseForcast);
-        $("#cityTitleMain").text(event.city.name);
+        $("#TemperatureMain").text(responseForcast.current.temp);
+        $("#HumidityMain").text(responseForcast.current.humidity);
+        $("#WindSpeedMain").text(responseForcast.current.wind_speed);
+      });
+      $.ajax({
+        url: queryUrlUV,
+        method: "GET",
+      }).then(function (responseUV) {
+        console.log("responseUV");
+        console.log(responseUV);
+
+        $("#TemperatureMain").text(responseForcast.current.temp);
       });
     });
     //write the weathe to the screen
