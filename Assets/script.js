@@ -6,8 +6,6 @@
 //Api that gets the UV index (using the lat long)
 //
 
-var cityName;
-
 // $.ajax({
 //   url: queryUrlLatLong,
 //   method: "GET",
@@ -35,7 +33,8 @@ $("#searchBtn").on("click", function (event) {
       method: "GET",
     }).then(function (responseLatLong) {
       //Write City Name to screen
-      $("#cityTitleMain").text(responseLatLong.city.name);
+      const cityName = responseLatLong.city.name;
+      console.log(cityName);
       //Use the returned lat and long to get 7 day weather
       console.log(responseLatLong);
       let latitude = responseLatLong.city.coord.lat;
@@ -47,11 +46,27 @@ $("#searchBtn").on("click", function (event) {
         method: "GET",
       }).then(function (responseForcast) {
         console.log(responseForcast);
+        $("#cityTitleMain").text(`${cityName}`);
+        $("#iconMain")
+          .removeAttr("src")
+          .attr(
+            "src",
+            `http://openweathermap.org/img/wn/${responseForcast.current.weather[0].icon}@2x.png`
+          );
         $("#TemperatureMain").text(responseForcast.current.temp);
         $("#HumidityMain").text(responseForcast.current.humidity);
         $("#WindSpeedMain").text(responseForcast.current.wind_speed);
-        for (let i = 0; i < 4; i++) {
-          const element = responseForcast.daily[i];
+        $("#fiveDayCards").html("");
+        //Create day weather cards
+        for (let i = 0; i < 5; i++) {
+          const dayObj = responseForcast.daily[i];
+          let col = $("<div>").addClass("col");
+          let card = $("<div>").addClass("card text-white bg-primary mb-3");
+          let cardBody = $("<div>").addClass("card-body");
+          let cardTitle = $("<h5>").addClass("card-title");
+          let cardIcon = $("<i>").addClass("card-title");
+
+          $("#cardDate1").text(dayjs.unix(dayObj.dt).format("M / D / YYYY"));
         }
       });
       $.ajax({
