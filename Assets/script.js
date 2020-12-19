@@ -25,7 +25,7 @@ $("#searchBtn").on("click", function (event) {
   event.preventDefault();
   if ($("#cityInput").val() !== "") {
     cityName = $("#cityInput").val();
-    console.log(cityName);
+
     let queryUrlLatLong = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=abf76a69e67fc664083162f1310bc36e`;
     //Get Weather
     $.ajax({
@@ -34,7 +34,7 @@ $("#searchBtn").on("click", function (event) {
     }).then(function (responseLatLong) {
       //Write City Name to screen
       const cityName = responseLatLong.city.name;
-      console.log(cityName);
+
       //Use the returned lat and long to get 7 day weather
       console.log(responseLatLong);
       let latitude = responseLatLong.city.coord.lat;
@@ -60,13 +60,29 @@ $("#searchBtn").on("click", function (event) {
         //Create day weather cards
         for (let i = 0; i < 5; i++) {
           const dayObj = responseForcast.daily[i];
-          let col = $("<div>").addClass("col");
-          let card = $("<div>").addClass("card text-white bg-primary mb-3");
-          let cardBody = $("<div>").addClass("card-body");
-          let cardTitle = $("<h5>").addClass("card-title");
-          let cardIcon = $("<i>").addClass("card-title");
+          console.log(dayObj);
+          let col = $("<div>", { class: "col" });
+          let card = $("<div>", {
+            class: "card text-white bg-primary mb-3",
+            css: { "max-width": "10rem;" },
+          });
+          let cardBody = $("<div>", { class: "card-body" });
+          let cardTitle = $("<h5>", { class: "card-title" }).text(
+            dayjs.unix(dayObj.dt).format("M / D / YYYY")
+          );
+          let cardIcon = $("<img>", {
+            class: "card-Icon",
+            alt: "weather icon",
+            src: `http://openweathermap.org/img/wn/${dayObj.weather[0].icon}@2x.png`,
+          });
 
           $("#cardDate1").text(dayjs.unix(dayObj.dt).format("M / D / YYYY"));
+          $("#cardIcon1").attr(
+            `src`,
+            `http://openweathermap.org/img/wn/${dayObj.weather[0].icon}@2x.png`
+          );
+          $("#cardTemp1").text(dayObj.temp.day);
+          $("#CardHumidity1").text(dayObj.humidity);
         }
       });
       $.ajax({
