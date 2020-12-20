@@ -82,7 +82,25 @@ $(document).ready(function () {
           url: queryUrlUV,
           method: "GET",
         }).then(function (responseUV) {
-          $("#uvIndexMain").text(responseUV.value);
+          uvIndex = responseUV.value;
+          uvIndex = 11;
+          console.log(uvIndex);
+          if (uvIndex <= 2) {
+            $("#uvIndexMain").removeClass("btn-light").addClass("btn-success");
+          }
+          if (uvIndex > 2 && uvIndex <= 5) {
+            $("#uvIndexMain").removeClass("btn-light").addClass("btn-warning");
+          }
+          if (uvIndex > 5 && uvIndex <= 7) {
+            $("#uvIndexMain").removeClass("btn-light").addClass("btn-orange");
+          }
+          if (uvIndex > 7 && uvIndex <= 10) {
+            $("#uvIndexMain").removeClass("btn-light").addClass("btn-danger");
+          }
+          if (uvIndex > 10) {
+            $("#uvIndexMain").removeClass("btn-light").addClass("btn-purple");
+          }
+          $("#uvIndexMain").text(uvIndex);
         });
       });
     }
