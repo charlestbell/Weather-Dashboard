@@ -3,7 +3,6 @@ $(document).ready(function () {
 
   if (localStorage.getItem("lastSearched") !== null) {
     let cityName = localStorage.getItem("lastSearched");
-    console.log("local storage city " + cityName);
     getWeather(cityName);
   }
 
@@ -33,7 +32,6 @@ $(document).ready(function () {
         let cityName = responseLatLong.city.name;
 
         //Use the returned lat and long to get 7 day weather
-        console.log(responseLatLong);
         let latitude = responseLatLong.city.coord.lat;
         let longitude = responseLatLong.city.coord.lon;
         let queryUrlForcast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=abf76a69e67fc664083162f1310bc36e`;
@@ -42,7 +40,6 @@ $(document).ready(function () {
           url: queryUrlForcast,
           method: "GET",
         }).then(function (responseForcast) {
-          console.log(responseForcast);
           $("#cityTitleMain").text(
             `${cityName} ${dayjs
               .unix(responseForcast.current.dt)
@@ -98,7 +95,6 @@ $(document).ready(function () {
           method: "GET",
         }).then(function (responseUV) {
           uvIndex = responseUV.value;
-          console.log(uvIndex);
           if (uvIndex <= 2) {
             $("#uvIndexMain").removeClass().addClass("btn btn-success");
           }
@@ -126,7 +122,6 @@ $(document).ready(function () {
     cityName = $("#cityInput").val();
     cityHistory.unshift(cityName);
     renderCityHistory();
-    console.log(cityHistory);
     getWeather(cityName);
   });
 
@@ -136,7 +131,6 @@ $(document).ready(function () {
       cityName = $("#cityInput").val();
       cityHistory.unshift(cityName);
       renderCityHistory();
-      console.log(cityHistory);
       getWeather(cityName);
     }
   });
