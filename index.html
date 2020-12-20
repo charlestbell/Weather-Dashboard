@@ -17,14 +17,12 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Hello, world!</title>
+    <title>Weather Dashboard</title>
   </head>
   <body id="bootstrapOverrides">
-    <nav class="navbar navbar-dark bg-dark">
-      <div class="container-fluid d-flex justify-content-center">
-        <h1 class="navbar-brand" href="#">Weather Dashboard</h1>
-      </div>
-    </nav>
+    <header class="bg-dark d-flex justify-content-center">
+      <h1 class="text-light p-2">Weather Dashboard</h1>
+    </header>
     <div id="fullHeight" class="container-fluid">
       <div class="row h-100">
         <div class="col-3 border-end card-header">
@@ -56,6 +54,8 @@
           <div class="row mb-1">
             <div class="m-3 card text-dark mb-3" style="max-width: 100">
               <div class="card-body">
+                <div id="cityData" class="d-none">
+
                 <h2 class="card-title"><span id="cityTitleMain"></span> <img id="iconMain"
                   alt="weather icon"
                   height="70"
@@ -72,6 +72,11 @@
                 <p class="card-text mb-2">
                   UV Index:  <button class="btn btn-light" id="uvIndexMain"></button>
                 </p>
+              </div>
+              <div id="welcome">
+                <h3>Welcome to weather dashboard</h3>
+                <p>Search for a city to get started</p>
+              </div>
               </div>
             </div>
           </div>

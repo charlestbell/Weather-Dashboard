@@ -35,7 +35,11 @@ $(document).ready(function () {
           method: "GET",
         }).then(function (responseForcast) {
           console.log(responseForcast);
-          $("#cityTitleMain").text(`${cityName}`);
+          $("#cityTitleMain").text(
+            `${cityName} ${dayjs
+              .unix(responseForcast.current.dt)
+              .format("M/D/YYYY")}`
+          );
           $("#iconMain")
             .removeAttr("src")
             .attr(
@@ -113,6 +117,8 @@ $(document).ready(function () {
     renderCityHistory();
     console.log(cityHistory);
     getWeather(cityName);
+    $("#welcome").addClass("d-none");
+    $("#cityData").removeClass("d-none").addClass("d-block");
   });
 
   //Get weather on Enter
