@@ -1,4 +1,17 @@
 $(document).ready(function () {
+  var cityHistory = [];
+
+  //A function that renders the City History
+  function renderCityHistory() {
+    $("#cityHistoryList").html("");
+    $(cityHistory).each(function (i) {
+      cityListEl = $("<a>", {
+        class: "list-group-item list-group-item-action",
+      }).text(cityHistory[i]);
+      $("#cityHistoryList").append(cityListEl);
+    });
+  }
+
   //get get weather and write it to the screen
   function getWeather(cityName) {
     if ($("#cityInput").val() !== "") {
@@ -33,10 +46,10 @@ $(document).ready(function () {
           $("#HumidityMain").text(responseForcast.current.humidity);
           $("#WindSpeedMain").text(responseForcast.current.wind_speed);
           $("#fiveDayCards").html("");
-          //Create day weather cards
+          //Create 5 day forcast
           for (let i = 0; i < 5; i++) {
             const dayObj = responseForcast.daily[i];
-            //create card elements
+
             let col = $("<div>", { class: "col" });
             let card = $("<div>", {
               class: "card text-white bg-primary mb-3",
@@ -57,12 +70,14 @@ $(document).ready(function () {
             let cardHumidity = $("<p>", { class: `card-text` }).text(
               `Humidity: ${dayObj.humidity}`
             );
+            //Render 5 day forcast
             col.append(card);
             card.append(cardBody);
             cardBody.append(cardTitle, cardIcon, cardTemp, cardHumidity);
             $("#fiveDayCards").append(col);
           }
         });
+        //get UV index and render it.
         $.ajax({
           url: queryUrlUV,
           method: "GET",
@@ -73,11 +88,18 @@ $(document).ready(function () {
     }
   }
 
+  //Get my weather! (and also add the city to the list)
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
     cityName = $("#cityInput").val();
+    cityHistory.unshift(cityName);
+    renderCityHistory();
+    console.log(cityHistory);
     getWeather(cityName);
   });
+
+  //Make City History clickable
+  $("#cityHistoryList").on("click", function (event) {});
 
   //end of document ready
 });
