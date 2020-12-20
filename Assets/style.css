@@ -1,3 +1,10 @@
+#background {
+  background-color: #fcf3f1;
+}
+
+h1 {
+  color: #17384b;
+}
 #fullHeight {
   height: 100vh;
 }
@@ -6,4 +13,16 @@
 }
 #bootstrapOverrides .btn-purple {
   background-color: violet;
+}
+
+.color-teal {
+  background-color: #f0ac89 !important;
+}
+
+header {
+  background-color: #f0ac89;
+}
+
+#bootstrapOverrides .btn-outline-secondary {
+  background-color: #f0ac89 !important;
 }

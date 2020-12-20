@@ -50,18 +50,21 @@ $(document).ready(function () {
           $("#HumidityMain").text(responseForcast.current.humidity);
           $("#WindSpeedMain").text(responseForcast.current.wind_speed);
           $("#fiveDayCards").html("");
+          //show the current weather
+          $("#welcome").addClass("d-none");
+          $("#cityData").removeClass("d-none").addClass("d-block");
           //Create 5 day forcast
           for (let i = 0; i < 5; i++) {
             const dayObj = responseForcast.daily[i];
 
             let col = $("<div>", { class: "col" });
             let card = $("<div>", {
-              class: "card text-white bg-primary mb-3",
-              css: { "max-width": "10rem;" },
+              class: "card text-white color-teal mb-3 shadow",
+              css: { "max-width": "10rem" },
             });
             let cardBody = $("<div>", { class: "card-body" });
             let cardTitle = $("<h5>", { class: "card-title" }).text(
-              dayjs.unix(dayObj.dt).format("M / D / YYYY")
+              dayjs.unix(dayObj.dt).format("M/D/YYYY")
             );
             let cardIcon = $("<img>", {
               class: "card-Icon",
@@ -117,14 +120,11 @@ $(document).ready(function () {
     renderCityHistory();
     console.log(cityHistory);
     getWeather(cityName);
-    $("#welcome").addClass("d-none");
-    $("#cityData").removeClass("d-none").addClass("d-block");
   });
 
   //Get weather on Enter
   $(document).keypress(function (e) {
     if (e.which == 13) {
-      event.preventDefault();
       cityName = $("#cityInput").val();
       cityHistory.unshift(cityName);
       renderCityHistory();
