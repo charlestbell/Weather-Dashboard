@@ -83,22 +83,21 @@ $(document).ready(function () {
           method: "GET",
         }).then(function (responseUV) {
           uvIndex = responseUV.value;
-          uvIndex = 11;
           console.log(uvIndex);
           if (uvIndex <= 2) {
-            $("#uvIndexMain").removeClass("btn-light").addClass("btn-success");
+            $("#uvIndexMain").removeClass().addClass("btn btn-success");
           }
           if (uvIndex > 2 && uvIndex <= 5) {
-            $("#uvIndexMain").removeClass("btn-light").addClass("btn-warning");
+            $("#uvIndexMain").removeClass().addClass("btn btn-warning");
           }
           if (uvIndex > 5 && uvIndex <= 7) {
-            $("#uvIndexMain").removeClass("btn-light").addClass("btn-orange");
+            $("#uvIndexMain").removeClass().addClass("btn btn-orange");
           }
           if (uvIndex > 7 && uvIndex <= 10) {
-            $("#uvIndexMain").removeClass("btn-light").addClass("btn-danger");
+            $("#uvIndexMain").removeClass().addClass("btn btn-danger");
           }
           if (uvIndex > 10) {
-            $("#uvIndexMain").removeClass("btn-light").addClass("btn-purple");
+            $("#uvIndexMain").removeClass().addClass("btn btn-purple");
           }
           $("#uvIndexMain").text(uvIndex);
         });
@@ -114,6 +113,18 @@ $(document).ready(function () {
     renderCityHistory();
     console.log(cityHistory);
     getWeather(cityName);
+  });
+
+  //Get weather on Enter
+  $(document).keypress(function (e) {
+    if (e.which == 13) {
+      event.preventDefault();
+      cityName = $("#cityInput").val();
+      cityHistory.unshift(cityName);
+      renderCityHistory();
+      console.log(cityHistory);
+      getWeather(cityName);
+    }
   });
 
   //Make City History clickable
