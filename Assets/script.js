@@ -1,6 +1,12 @@
 $(document).ready(function () {
   var cityHistory = [];
 
+  if (localStorage.getItem("lastSearched") !== null) {
+    let cityName = localStorage.getItem("lastSearched");
+    console.log("local storage city " + cityName);
+    getWeather(cityName);
+  }
+
   //A function that renders the City History
   function renderCityHistory() {
     $("#cityHistoryList").html("");
@@ -14,7 +20,9 @@ $(document).ready(function () {
 
   //get get weather and write it to the screen
   function getWeather(cityName) {
-    if ($("#cityInput").val() !== "") {
+    if (cityName !== "") {
+      localStorage.setItem("lastSearched", cityName);
+
       let queryUrlLatLong = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=abf76a69e67fc664083162f1310bc36e`;
       //Get Weather
       $.ajax({
