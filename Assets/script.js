@@ -22,7 +22,7 @@ $(document).ready(function () {
         method: "GET",
       }).then(function (responseLatLong) {
         //Write City Name to screen
-        const cityName = responseLatLong.city.name;
+        let cityName = responseLatLong.city.name;
 
         //Use the returned lat and long to get 7 day weather
         console.log(responseLatLong);
@@ -99,7 +99,9 @@ $(document).ready(function () {
   });
 
   //Make City History clickable
-  $("#cityHistoryList").on("click", function (event) {});
+  $("#cityHistoryList").on("click", function (event) {
+    getWeather(event.target.text);
+  });
 
   //end of document ready
 });
