@@ -35,7 +35,7 @@ $(document).ready(function () {
         let latitude = responseLatLong.city.coord.lat;
         let longitude = responseLatLong.city.coord.lon;
         let queryUrlForcast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=abf76a69e67fc664083162f1310bc36e`;
-        let queryUrlUV = `http://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=abf76a69e67fc664083162f1310bc36e`;
+        let queryUrlUV = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=abf76a69e67fc664083162f1310bc36e`;
         $.ajax({
           url: queryUrlForcast,
           method: "GET",
