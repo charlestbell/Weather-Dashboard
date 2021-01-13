@@ -22,6 +22,11 @@ Click on Cities in earch history to quickly switch back and forth.
 - Automatically displays the last city you searched upon return visits
 - Weather data is hidden until after the search is completed.
 
+## Technologies 
+
+- Bootstrap
+- Jquery
+
 ## Upcoming Features
 
 - Save search history to local storage
